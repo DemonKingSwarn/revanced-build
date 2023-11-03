@@ -16,13 +16,13 @@ Revanced Builder CLI is a command-line tool designed to build custom versions of
 
 1. Clone the repository:
    ```shell
-   git clone https://github.com/yourusername/revanced-builder-cli.git
-   cd revanced-builder-cli
+   git clone https://github.com/demonkingswarn/revanced-build.git
+   cd revanced-build
    ```
 
-2. Run the script with your desired options:
+2. Run the script:
    ```shell
-   ./revanced {app you want to download: youtube/youtubemusic} {app version}
+   ./revanced
    ```
 
 ## Contributing
