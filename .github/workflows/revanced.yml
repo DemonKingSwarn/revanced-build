@@ -1,0 +1,26 @@
+name: "idk"
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: "30 * * * *"
+
+jobs:
+  check_update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: run_script
+        run: sh revanced youtube
+        
+      - name: auto-commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "update: new revanced build"
+          repository: .
+          file_pattern: *.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
