@@ -34,7 +34,7 @@ date=$(date +%F)
 rv_cli="cli-$date.jar"
 rv_patch="patches-$date.jar"
 rv_inte="integrations-$date.apk"
-keystore=""
+keystore="--keystore ./yt-revanced.keystore"
 
 #check if directory is there
 [ -d "$tmp_dir" ] || mkdir "$tmp_dir"
@@ -60,14 +60,14 @@ case $app in
 	youtube)
 		arch="universal"
 		[ -z "$2" ] && version=$(curl -s "https://api.revanced.app/v2/patches/latest" | sed -nE 's|.*youtube","versions":\[[0-9\.",]*,"([^\}]*)"\].*|\1|p') || version=$2
-		exclude_patch_list="always-autorepeat,hide-captions-button,custom-player-overlay-opacity,hide-seekbar,hide-timestamp,hide-video-action-buttons,player-flyout-menu,remove-player-controls-background,spoof-app-version"
-		out="yt-revanced-$version-$date.apk"
+		exclude_patch_list="hide-captions-button,custom-player-overlay-opacity,hide-seekbar,hide-timestamp,hide-video-action-buttons,player-flyout-menu,remove-player-controls-background,spoof-app-version"
+		out="yt-revanced-$version.apk"
 		;;
 	youtube-music)
 		arch="arm64-v8a"
 		[ -z "$2" ] && version="6.10.53" || version=$2
 		exclude_patch_list=""
-		out="yt-music-revanced-$version-$date.apk"
+		out="yt-music-revanced-$version.apk"
 		;;
 	*)
 		info "Wrong Package Name, please pass either 'youtube' or 'youtube-music'" "31"
@@ -107,4 +107,6 @@ info "All listed Patches Excluded"
 info "Patching $app-$version.apk.."
 
 #shellcheck disable=SC2086
-java -jar "$tmp_dir/$rv_cli" patch --patch-bundle "$tmp_dir/$rv_patch" --merge "$tmp_dir/$rv_inte" --out "$HOME/$out" $keystore --resource-cache "$tmp_dir/revanced-resource-cache" "$tmp_dir/$app-$version.apk" $exclude_patches
+java -jar "$tmp_dir/$rv_cli" patch --patch-bundle "$tmp_dir/$rv_patch" --merge "$tmp_dir/$rv_inte" --out "$HOME/$out" $keystore -t "$tmp_dir/revanced-resource-cache" $exclude_patches "$tmp_dir/$app-$version.apk"
+
+
