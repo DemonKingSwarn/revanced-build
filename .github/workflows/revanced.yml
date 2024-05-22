@@ -3,6 +3,8 @@ name: Revanced APKs
 on:
   schedule:
     - cron: '0 */6 * * *'
+  push:
+    - ".github/workflows/revanced.yml"
 
   workflow_dispatch:
 
