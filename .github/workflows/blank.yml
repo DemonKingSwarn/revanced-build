@@ -5,7 +5,7 @@ on:
     - cron: '0 */6 * * *'
   push:
     paths:
-      - ".github/workflows/revanced.yml"
+      - ".github/workflows/blank.yml"
 
 
   workflow_dispatch:
