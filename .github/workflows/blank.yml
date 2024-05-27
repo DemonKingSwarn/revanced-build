@@ -29,10 +29,10 @@ jobs:
                 apks_exist='true' 
                 echo "$apks_exist" >> "$GITHUB_OUTPUT"
                 RELEASE_TAG="$(date +'%Y-%m-%d')" 
-                echo "$RELEASE_TAG" >> "$GITHUB_OUTPUT"
+                echo "RELEASE_TAG=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
             else
                 apks_exist='false'
-                echo "$apks_exist" >> "$GITHUB_OUTPUT"
+                echo "apk_exists=$apks_exist" >> "$GITHUB_OUTPUT"
             fi
 
       - name: Upload binaries to release
