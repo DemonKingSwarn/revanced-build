@@ -26,10 +26,13 @@ jobs:
         id: check_apks
         run: |
             if ls *.apk 1> /dev/null 2>&1;then 
-                echo "apks_exist='true'" >> "$GITHUB_OUTPUT"
-                echo "RELEASE_TAG=$(date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+                apks_exist='true' 
+                echo "$apks_exist" >> "$GITHUB_OUTPUT"
+                RELEASE_TAG="$(date +'%Y-%m-%d')" 
+                echo "$RELEASE_TAG" >> "$GITHUB_OUTPUT"
             else
-                echo "apks_exist='false'" >> "$GITHUB_OUTPUT"
+                apks_exist='false'
+                echo "$apks_exist" >> "$GITHUB_OUTPUT"
             fi
 
       - name: Upload binaries to release
