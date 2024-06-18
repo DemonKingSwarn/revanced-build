@@ -25,20 +25,19 @@ jobs:
         id: check_apks
         run: |
           if ls *.apk 1> /dev/null 2>&1; then 
-            echo "apks_exist=true" >> "$GITHUB_ENV"
-            RELEASE_TAG="$(date +'%Y-%m-%d')" 
-            echo "RELEASE_TAG=$RELEASE_TAG" >> "$GITHUB_ENV"
+            echo "apks_exist=true" >> $GITHUB_OUTPUT
+            echo "RELEASE_TAG=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
           else
-            echo "apks_exist=false" >> "$GITHUB_ENV"
-          fi
+            echo "apks_exist=false" >> $GITHUB_OUTPUT
+        shell: bash
 
       - name: Upload binaries to release
-        if: env.apks_exist == 'true'
+        if: steps.check_apks.outputs.apks_exist == 'true'
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.TOKEN }}
           file: yt-*.apk
-          tag: ${{ env.RELEASE_TAG }}
+          tag: ${{ steps.check_apks.outputs.RELEASE_TAG }}
           overwrite: true
           file_glob: true
           body: "New Releases."
