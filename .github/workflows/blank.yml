@@ -18,8 +18,8 @@ jobs:
       - name: Run Revanced Youtube
         run: sh revanced youtube
 
-        #- name: Run Revanced Youtube Music
-        #run: sh revanced youtube-music
+      - name: Run Revanced Youtube Music
+        run: sh revanced youtube-music
 
       - name: Check for APK files
         id: check_apks
@@ -32,11 +32,18 @@ jobs:
           fi
         shell: bash
 
+      - name: set apk for upload
+        run: |
+             sudo apt install zip unzip -y
+             mkdir yt-revanced
+             mv *.apk yt-revanced
+             zip -r yt-revanced.zip yt-revanced
+
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.TOKEN }}
-          file: yt-*.apk
+          file: yt-revanced.zip
           tag: latest
           overwrite: true
           file_glob: true
