@@ -6,7 +6,6 @@ on:
   push:
     paths:
       - ".github/workflows/blank.yml"
-
   workflow_dispatch:
 
 jobs:
@@ -25,28 +24,25 @@ jobs:
       - name: Check for APK files
         id: check_apks
         run: |
-            if ls *.apk 1> /dev/null 2>&1;then 
-                apks_exist='true' 
-                echo "$apks_exist" >> "$GITHUB_OUTPUT"
-                RELEASE_TAG="$(date +'%Y-%m-%d')" 
-                echo "RELEASE_TAG=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
-            else
-                apks_exist='false'
-                echo "apk_exists=$apks_exist" >> "$GITHUB_OUTPUT"
-            fi
+          if ls *.apk 1> /dev/null 2>&1; then 
+            echo "apks_exist=true" >> "$GITHUB_ENV"
+            RELEASE_TAG="$(date +'%Y-%m-%d')" 
+            echo "RELEASE_TAG=$RELEASE_TAG" >> "$GITHUB_ENV"
+          else
+            echo "apks_exist=false" >> "$GITHUB_ENV"
+          fi
 
       - name: Upload binaries to release
-        if: ${{ steps.check_apks.outputs.apks_exist }} == 'true'
+        if: env.apks_exist == 'true'
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.TOKEN }}
           file: yt-*.apk
-          tag:  'yes'
+          tag: ${{ env.RELEASE_TAG }}
           overwrite: true
           file_glob: true
           body: "New Releases."
-          
-             
+
       - name: auto commit uwu
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
