@@ -32,18 +32,11 @@ jobs:
           fi
         shell: bash
 
-      - name: set apk for upload
-        run: |
-             sudo apt install zip unzip -y
-             mkdir yt-revanced
-             mv *.apk yt-revanced
-             zip -r yt-revanced.zip yt-revanced
-
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.TOKEN }}
-          file: yt-revanced.zip
+          file: /home/runner/yt-*.apk
           tag: latest
           overwrite: true
           file_glob: true
