@@ -32,13 +32,17 @@ jobs:
           fi
         shell: bash
 
+      - name: Set NOW
+        run: |
+          echo "export NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
+
       - name: Upload binaries to release
         #if: steps.check_apks.outputs.apks_exist == 'true'
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.TOKEN }}
           file: /home/runner/yt-*.apk
-          tag: ${{ env.CURRENT_DATE }}
+          tag: ${{ env.NOW }}
           overwrite: true
           file_glob: true
           body: "New Releases."
