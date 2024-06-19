@@ -33,8 +33,9 @@ jobs:
         shell: bash
 
       - name: Set NOW
+        id: now
         run: |
-          echo "export NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
+          echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Upload binaries to release
         #if: steps.check_apks.outputs.apks_exist == 'true'
@@ -42,7 +43,7 @@ jobs:
         with:
           repo_token: ${{ secrets.TOKEN }}
           file: /home/runner/yt-*.apk
-          tag: ${{ env.NOW }}
+          tag: ${{ steps.now.outputs.NOW }}
           overwrite: true
           file_glob: true
           body: "New Releases."
