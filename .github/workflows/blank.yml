@@ -29,6 +29,7 @@ jobs:
             echo "release_tag=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
           else
             echo "apks_exist=false" >> $GITHUB_OUTPUT
+          fi
         shell: bash
 
       - name: Upload binaries to release
