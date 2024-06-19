@@ -19,18 +19,7 @@ jobs:
         run: sh revanced youtube
 
       - name: Run Revanced Youtube Music
-        run: sh revanced youtube-music
-
-      - name: Check for APK files
-        id: check_apks
-        run: |
-          if ls *.apk 1> /dev/null 2>&1; then 
-            echo "apks_exist=true" >> $GITHUB_OUTPUT
-            echo "release_tag=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-          else
-            echo "apks_exist=false" >> $GITHUB_OUTPUT
-          fi
-        shell: bash
+        run: sh revanced youtube-music 6.45.54
 
       - name: Upload binaries to release
         if: steps.check_apks.outputs.apks_exist == 'true'
@@ -38,7 +27,7 @@ jobs:
         with:
           repo_token: ${{ secrets.TOKEN }}
           file: /home/runner/yt-*.apk
-          tag: ${{ steps.check_apks.outputs.release_tag }}
+          tag: latest
           overwrite: true
           file_glob: true
           body: "New Releases."
