@@ -28,7 +28,6 @@ jobs:
           if ls *.apk 1> /dev/null 2>&1; then 
             echo "apks_exist=true" >> $GITHUB_OUTPUT
             echo "release_tag=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-            ls /home/runner/
           else
             echo "apks_exist=false" >> $GITHUB_OUTPUT
           fi
@@ -37,6 +36,7 @@ jobs:
       - name: Set NOW
         id: now
         run: |
+          ls /home/runner
           echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Upload binaries to release
