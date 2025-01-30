@@ -43,7 +43,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.TOKEN }}
-          file: /home/runner/*.apk
+          file: *.apk
           tag: ${{ steps.now.outputs.NOW }}
           overwrite: true
           file_glob: true
