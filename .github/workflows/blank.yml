@@ -20,7 +20,7 @@ jobs:
         run: sh revanced youtube
 
       - name: Run Revanced Youtube Music
-        run: sh revanced youtube-music 7.16.53
+        run: sh revanced youtube-music 7.29.52
 
       - name: Check for APK files
         id: check_apks
