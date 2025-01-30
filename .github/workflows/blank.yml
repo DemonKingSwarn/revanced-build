@@ -36,7 +36,7 @@ jobs:
       - name: Set NOW
         id: now
         run: |
-          ls /home/runner
+          ls /home/runner/runners
           echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Upload binaries to release
