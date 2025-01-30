@@ -28,6 +28,7 @@ jobs:
           if ls *.apk 1> /dev/null 2>&1; then 
             echo "apks_exist=true" >> $GITHUB_OUTPUT
             echo "release_tag=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+            ls *.apk
           else
             echo "apks_exist=false" >> $GITHUB_OUTPUT
           fi
