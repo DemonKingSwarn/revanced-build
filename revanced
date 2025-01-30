@@ -29,7 +29,7 @@ download_apk() {
 }
 
 # Temporary directory setup
-tmp_dir="${TMPDIR:-/tmp}/revanced"
+tmp_dir="/tmp/revanced"
 mkdir -p "$tmp_dir"
 
 # User agent for curl requests
@@ -126,4 +126,4 @@ info "All listed Patches Excluded"
 
 # Patch the APK
 info "Patching $app-$version.apk.."
-java -jar "$tmp_dir/$rv_cli" patch --patches="$tmp_dir/$rv_patch" --out "./$out" --keystore "$keystore" "$tmp_dir/$app-$version.apk" $exclude_patches && sed -i "s|$app\t.*|$app\t$version|g" "$track_file"
+java -jar "$tmp_dir/$rv_cli" patch --patches="$tmp_dir/$rv_patch" --out "$tmp_dir/$out" --keystore "$keystore" "$tmp_dir/$app-$version.apk" $exclude_patches && sed -i "s|$app\t.*|$app\t$version|g" "$track_file"
